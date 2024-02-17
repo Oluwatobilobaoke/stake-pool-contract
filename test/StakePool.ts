@@ -49,4 +49,57 @@ describe("StakePool", function () {
       expect(await erc20.owner()).to.equal(owner.address);
     });
   });
+
+  describe("Stake", function () {
+    it("Should be able to stake ERC20 tokens", async () => {
+      const { owner, otherAccount, erc20, stakePool } = await loadFixture(
+        deployStakePool
+      );
+
+      const stakeAmount = ethers.parseUnits("3", 18);
+
+      await erc20.transfer(otherAccount.address, stakeAmount);
+
+      await erc20.connect(otherAccount).approve(stakePool.target, stakeAmount);
+
+      await stakePool.connect(otherAccount).stake(stakeAmount);
+
+      expect(await stakePool.totalSharesDeposited()).to.equal(stakeAmount);
+    });
+
+    it("Should be able to stake ERC20 tokens and get shares", async () => {
+      const { owner, otherAccount, erc20, stakePool } = await loadFixture(
+        deployStakePool
+      );
+
+      const stakeAmount = ethers.parseUnits("3", 18);
+
+      await erc20.transfer(otherAccount.address, stakeAmount);
+
+      await erc20.connect(otherAccount).approve(stakePool.target, stakeAmount);
+
+      await stakePool.connect(otherAccount).stake(stakeAmount);
+
+      const shares = await stakePool.userStake(otherAccount.address);
+
+      expect(shares[0]).to.equal(stakeAmount);
+    });
+
+    it("should not be able to stake more than the balance", async () => {
+      const { owner, otherAccount, erc20, stakePool } = await loadFixture(
+        deployStakePool
+      );
+
+      const transferAmount = ethers.parseUnits("3", 18);
+      const stakeAmount = ethers.parseUnits("4", 18);
+
+      await erc20.transfer(otherAccount.address, transferAmount);
+
+      await erc20.connect(otherAccount).approve(stakePool.target, stakeAmount);
+
+      expect(
+        stakePool.connect(otherAccount).stake(stakeAmount)
+      ).to.be.revertedWithCustomError(stakePool, "INSUFFICIENT_FUNDS");
+    });
+  });
 });
