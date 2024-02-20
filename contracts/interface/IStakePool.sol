@@ -2,9 +2,6 @@
 pragma solidity ^0.8.10;
 
 interface IStakePool {
-
-
-    uint256 public totalSharesDeposited;
   
     struct Share {
         uint256 amount;
@@ -18,6 +15,8 @@ interface IStakePool {
     function stake (uint256 amount) external;
 
     function userStake(address wallet) external view returns (uint256, uint256);
+
+    function getUnpaid(address wallet) external view returns (uint256);
 
     function claimReward() external;
 }

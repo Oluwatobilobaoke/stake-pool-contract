@@ -9,30 +9,23 @@ async function interact() {
     "IStakePool",
     STAKE_POOL_ADDRESS
   );
-  const erc20Token = await ethers.getContractAt("IERC20", ERC20_TOKEN);
 
-  const stakeAmount = ethers.parseUnits("3", 18);
-
-  console.log(`The Stake Amount to be staked is : ${stakeAmount}`);
-
-  // approce the stakePool to spend the ERC20 tokens
-  await erc20Token.approve(stakePool.target, stakeAmount);
-
-  // stake the ERC20 tokens
-  const stakeToken = await stakePool.stake(stakeAmount);
-  stakeToken.wait();
-
-  console.log(`The ERC20 tokens are staked successfully`);
+  const erc20Token = await ethers.getContractAt("ERC20Token", ERC20_TOKEN);
 
   //get the user stake
   const ownerStake = await stakePool.userStake(OWNER_ADDRESS);
 
   console.log(`The owner stake is : ${ownerStake}`);
 
-  // get the total shares deposited
-  const totalSharesDeposited = await stakePool.totalSharesDeposited();
 
-  console.log(`The total shares deposited are : ${totalSharesDeposited}`);
+
+  // get user rewards
+  const ownerRewards = await stakePool.getUnpaid(OWNER_ADDRESS);
+
+  console.log(`The owner rewards are : ${ownerRewards}`);
+
+
+
 }
 
 // We recommend this pattern to be able to use async/await everywhere

@@ -9,7 +9,7 @@ async function interact() {
     "IStakePool",
     STAKE_POOL_ADDRESS
   );
-  const erc20Token = await ethers.getContractAt("IERC20", ERC20_TOKEN);
+  const erc20Token = await ethers.getContractAt("ERC20Token", ERC20_TOKEN);
 
   const stakeAmount = ethers.parseUnits("3", 18);
 
