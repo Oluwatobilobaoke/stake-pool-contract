@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  const initialOwner = "0x6694c714e3Be435Ad1e660C37Ea78351092b0075";
+  const initialOwner = "0x77158c23cc2d9dd3067a82e2067182c85fa3b1f6";
   const erc20Contract = await ethers.deployContract("ERC20Token", [
     initialOwner,
     "JARA",
@@ -29,10 +29,10 @@ main().catch((error) => {
 });
 
 // npx hardhat run scripts/deploy.ts --network sepolia
-// ERC20 Token contract deployed to 0x0F9BF4288C701714c01993b378d5d981A956f232
-// npx hardhat verify --network sepolia 0x0F9BF4288C701714c01993b378d5d981A956f232 0x6694c714e3Be435Ad1e660C37Ea78351092b0075 JARA JR
+// ERC20 Token contract deployed to 0x386BE69B2b4a6cf04CF184e8253fB2E08cDA27f5
+// npx hardhat verify --network sepolia 0x386BE69B2b4a6cf04CF184e8253fB2E08cDA27f5 0x77158c23cc2d9dd3067a82e2067182c85fa3b1f6 JARA JR
 
-// StakePool contract deployed to 0xd466eD0B10d5008C39f71eE11B0d746ea3ABaF20
-// npx hardhat verify --network sepolia 0xd466eD0B10d5008C39f71eE11B0d746ea3ABaF20 0x0F9BF4288C701714c01993b378d5d981A956f232
+// StakePool contract deployed to 0x1E6456cD9edA5f2D461c7a5819Cd5EBE7FBF3b5E
+// npx hardhat verify --network sepolia 0x1E6456cD9edA5f2D461c7a5819Cd5EBE7FBF3b5E 0x77158c23cc2d9dd3067a82e2067182c85fa3b1f6
 
 // npx hardhat test
