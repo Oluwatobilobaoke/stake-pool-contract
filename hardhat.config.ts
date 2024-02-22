@@ -31,3 +31,16 @@ export default config;
 //  npx hardhat verify --network sepolia <ADDRESS>
 
 // npx hardhat test
+
+// contracts/ChainBattles.sol:ChainBattles at 0x0E31545F3B5E3a5e077921f628baf72fcCaBF629
+// for verification on the block explorer. Waiting for verification result...
+
+// Successfully verified contract ChainBattles on the block explorer.
+// https://sepolia.etherscan.io/address/0x0E31545F3B5E3a5e077921f628baf72fcCaBF629#code
+
+// Successfully submitted source code for contract
+// contracts/ChainBattles.sol:ChainBattles at 0x00F782f3660F0Ae78e818C7D961c814C7911C5c3
+// for verification on the block explorer. Waiting for verification result...
+
+// Successfully verified contract ChainBattles on the block explorer.
+// https://sepolia.etherscan.io/address/0x00F782f3660F0Ae78e818C7D961c814C7911C5c3#code
