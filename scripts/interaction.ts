@@ -5,10 +5,7 @@ const STAKE_POOL_ADDRESS = "0x1E6456cD9edA5f2D461c7a5819Cd5EBE7FBF3b5E";
 const ERC20_TOKEN = "0x386BE69B2b4a6cf04CF184e8253fB2E08cDA27f5";
 
 async function interact() {
-  const stakePool = await ethers.getContractAt(
-    "IStakePool",
-    STAKE_POOL_ADDRESS
-  );
+  const stakePool = await ethers.getContractAt("StakePool", STAKE_POOL_ADDRESS);
   const erc20Token = await ethers.getContractAt("ERC20Token", ERC20_TOKEN);
 
   const stakeAmount = ethers.parseUnits("3", 18);
@@ -16,11 +13,15 @@ async function interact() {
   console.log(`The Stake Amount to be staked is : ${stakeAmount}`);
 
   // approce the stakePool to spend the ERC20 tokens
-  await erc20Token.approve(stakePool.target, stakeAmount);
+  const approve = await erc20Token.approve(stakePool.target, stakeAmount);
+  approve.wait();
 
-  // stake the ERC20 tokens
-  const stakeToken = await stakePool.stake(stakeAmount);
-  stakeToken.wait();
+  //stake the ERC20 tokens
+  const stake = await stakePool.stake(stakeAmount);
+  stake.wait();
+
+  let sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  await sleep(60000);
 
   console.log(`The ERC20 tokens are staked successfully`);
 
@@ -29,7 +30,7 @@ async function interact() {
 
   console.log(`The owner stake is : ${ownerStake}`);
 
-  // get the total shares deposited
+  //   // get the total shares deposited
   const totalSharesDeposited = await stakePool.totalSharesDeposited();
 
   console.log(`The total shares deposited are : ${totalSharesDeposited}`);
